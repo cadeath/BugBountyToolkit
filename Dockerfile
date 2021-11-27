@@ -1,6 +1,6 @@
 FROM ubuntu:18.04
 
-LABEL maintainer="Alexis Ahmed"
+LABEL maintainer="Eskie Maquilang"
 
 # Environment Variables
 ENV HOME /root
@@ -77,6 +77,7 @@ RUN apt-get update && \
     powerline\
     # zsh
     fonts-powerline\
+    htop \
     && rm -rf /var/lib/apt/lists/*
 
 # tzdata
@@ -107,10 +108,6 @@ RUN cd ${HOME}/toolkit && \
 
 # wfuzz
 RUN pip install wfuzz
-
-# seclists
-RUN cd ${HOME}/wordlists && \
-    git clone --depth 1 https://github.com/danielmiessler/SecLists.git 
 
 # knock
 RUN cd ${HOME}/toolkit && \
@@ -311,11 +308,6 @@ RUN go get github.com/haccer/subjack
 # SubOver
 RUN go get github.com/Ice3man543/SubOver
 
-# Compress wordlist
-RUN cd ${HOME}/wordlists && \
-    tar czf SecList.tar.gz ${HOME}/wordlists/SecLists/ && \
-    rm -rf SecLists
-
 # ZSH configuration
 RUN export SHELL=/usr/bin/zsh && \
     cd ${HOME} && \
@@ -349,13 +341,3 @@ RUN cd ${HOME}/toolkit && \
 RUN go clean -cache && \
     go clean -testcache && \
     go clean -modcache
-
-
-
-
-
-
-    
-
-
-
