@@ -51,6 +51,7 @@ RUN apt-get update && \
     cpanminus \
     # wfuzz
     python-pycurl \
+    python3-dev \
     # knock
     python-dnspython \
     # massdns
@@ -107,7 +108,7 @@ RUN cd ${HOME}/toolkit && \
     ln -s ${HOME}/toolkit/Sublist3r/sublist3r.py /usr/local/bin/sublist3r
 
 # wfuzz
-RUN pip install wfuzz
+RUN python3 -m pip install wfuzz
 
 # knock
 RUN cd ${HOME}/toolkit && \
