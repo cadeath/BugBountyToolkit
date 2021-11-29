@@ -1,6 +1,7 @@
 FROM ubuntu:18.04
 
 LABEL maintainer="Eskie Maquilang"
+LABEL version="1.3"
 
 # Environment Variables
 ENV HOME /root
@@ -22,7 +23,6 @@ RUN apt-get update && \
     git \
     vim \
     wget \
-    awscli \
     tzdata \
     curl \
     make \
@@ -80,6 +80,9 @@ RUN apt-get update && \
     fonts-powerline\
     htop \
     && rm -rf /var/lib/apt/lists/*
+
+# awscli
+RUN pip3 install awscli==1.22.14
 
 # tzdata
 RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime && \
@@ -201,6 +204,15 @@ RUN cd ${HOME}/toolkit && \
     pip install -r requirements.txt && \
     chmod +x cloudflair.py && \
     ln -sf ${HOME}/toolkit/CloudFlair/cloudflair.py /usr/local/bin/cloudflair
+
+# LinkFinder
+RUN cd ${HOME}/toolkit && \
+    git clone https://github.com/GerbenJavado/LinkFinder.git && \
+    cd LinkFinder && \
+    python3 setup.py install && \
+    pip3 install -r requirements.txt && \
+    chmod +x linkfinder.py
+    # ln -sf ${HOME}/toolkit/LinkFinder/linkfinder.py /usr/local/bin/linkfinder
 
 # joomscan
 RUN cd ${HOME}/toolkit && \
