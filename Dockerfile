@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 
 LABEL maintainer="Eskie Maquilang"
-LABEL version="1.3"
+LABEL version="1.4"
 
 # Environment Variables
 ENV HOME /root
@@ -83,6 +83,9 @@ RUN apt-get update && \
 
 # awscli
 RUN pip3 install awscli==1.22.14
+
+# nmap vulners
+RUN wget -o /usr/share/nmap/scripts/vulners.nse https://svn.nmap.org/nmap/scripts/vulners.nse
 
 # tzdata
 RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime && \
@@ -223,11 +226,11 @@ COPY joomscan.sh /opt
 RUN chmod +x /opt/joomscan.sh && \
     ln -sf /opt/joomscan.sh /usr/local/bin/joomscan
 
-# go
+# go1.17
 RUN cd /opt && \
-    wget https://golang.org/dl/go1.16.4.linux-amd64.tar.gz && \
-    tar -xvf go1.16.4.linux-amd64.tar.gz && \
-    rm -rf /opt/go1.16.4.linux-amd64.tar.gz && \
+    wget https://go.dev/dl/go1.17.3.linux-amd64.tar.gz && \
+    tar -xvf go1.17.3.linux-amd64.tar.gz && \
+    rm -rf /opt/go1.17.3.linux-amd64.tar.gz && \
     mv go /usr/local 
 ENV GOROOT /usr/local/go
 ENV GOPATH /root/go
@@ -349,6 +352,11 @@ RUN cd ${HOME}/toolkit && \
     cd katoolin && \
     chmod +x katoolin.py
 
+# Nuclei
+RUN go install -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei@latest
+
+# Interactsh
+RUN go install -v github.com/projectdiscovery/interactsh/cmd/interactsh-client@latest
 
 # Clean Go Cache
 RUN go clean -cache && \
