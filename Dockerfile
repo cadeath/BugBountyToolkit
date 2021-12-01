@@ -1,11 +1,13 @@
 FROM ubuntu:18.04
 
 LABEL maintainer="Eskie Maquilang"
-LABEL version="1.4"
+LABEL version="1.5"
 
 # Environment Variables
 ENV HOME /root
 ENV DEBIAN_FRONTEND=noninteractive
+
+ENV AQUATONE_VERSION=1.7.0
 
 
 # Working Directory
@@ -357,6 +359,25 @@ RUN go install -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei@latest
 
 # Interactsh
 RUN go install -v github.com/projectdiscovery/interactsh/cmd/interactsh-client@latest
+
+# Chromium
+WORKDIR /opt/chromium
+RUN apt-get install -yq gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 \
+    libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 \
+    libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 \
+    libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 \
+    ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils libgbm-dev
+
+RUN git clone https://github.com/scheib/chromium-latest-linux
+WORKDIR /opt/chromium/chromium-latest-linux
+RUN ./update.sh && ln -s /opt/chromium/chromium-latest-linux/latest/chrome /usr/bin/chromium
+
+# aquatone
+RUN cd ${HOME}/toolkit && \
+    wget https://github.com/michenriksen/aquatone/releases/download/v${AQUATONE_VERSION}/aquatone_linux_amd64_${AQUATONE_VERSION}.zip && \
+    unzip aquatone_linux_amd64_${AQUATONE_VERSION}.zip -d aquatone && rm aquatone_linux_amd64_${AQUATONE_VERSION}.zip && \
+    cp ./aquatone/aquatone /usr/bin/aquatone
+
 
 # Clean Go Cache
 RUN go clean -cache && \
