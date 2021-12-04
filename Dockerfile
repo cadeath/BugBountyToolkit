@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 
 LABEL maintainer="Eskie Maquilang"
-LABEL version="1.5"
+LABEL version="1.6"
 
 # Environment Variables
 ENV HOME /root
@@ -38,6 +38,7 @@ RUN apt-get update && \
     nikto \
     dnsutils \
     net-tools \
+    unzip\
     zsh\
     nano\
     && rm -rf /var/lib/apt/lists/*
@@ -86,8 +87,9 @@ RUN apt-get update && \
 # awscli
 RUN pip3 install awscli==1.22.14
 
-# nmap vulners
+# nmap scripts
 RUN wget -o /usr/share/nmap/scripts/vulners.nse https://svn.nmap.org/nmap/scripts/vulners.nse
+RUN wget -o /usr/share/nmap/scripts/http-wordpress-info.nse https://raw.githubusercontent.com/hackertarget/nmap-nse-scripts/master/http-wordpress-info.nse
 
 # tzdata
 RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime && \
@@ -374,8 +376,8 @@ RUN ./update.sh && ln -s /opt/chromium/chromium-latest-linux/latest/chrome /usr/
 
 # aquatone
 RUN cd ${HOME}/toolkit && \
-    wget https://github.com/michenriksen/aquatone/releases/download/v${AQUATONE_VERSION}/aquatone_linux_amd64_${AQUATONE_VERSION}.zip && \
-    unzip aquatone_linux_amd64_${AQUATONE_VERSION}.zip -d aquatone && rm aquatone_linux_amd64_${AQUATONE_VERSION}.zip && \
+    wget https://github.com/michenriksen/aquatone/releases/download/v1.7.0/aquatone_linux_amd64_1.7.0.zip && \
+    unzip aquatone_linux_amd64_1.7.0.zip -d aquatone && rm aquatone_linux_amd64_1.7.0.zip && \
     cp ./aquatone/aquatone /usr/bin/aquatone
 
 
