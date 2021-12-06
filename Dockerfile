@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 
 LABEL maintainer="Eskie Maquilang"
-LABEL version="1.6"
+LABEL version="1.7"
 
 # Environment Variables
 ENV HOME /root
@@ -39,6 +39,7 @@ RUN apt-get update && \
     dnsutils \
     net-tools \
     unzip\
+    exif\
     zsh\
     nano\
     && rm -rf /var/lib/apt/lists/*
