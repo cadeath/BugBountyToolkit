@@ -89,8 +89,8 @@ RUN apt-get update && \
 RUN pip3 install awscli==1.22.14
 
 # nmap scripts
-RUN wget -o /usr/share/nmap/scripts/vulners.nse https://svn.nmap.org/nmap/scripts/vulners.nse
-RUN wget -o /usr/share/nmap/scripts/http-wordpress-info.nse https://raw.githubusercontent.com/hackertarget/nmap-nse-scripts/master/http-wordpress-info.nse
+RUN wget -O /usr/share/nmap/scripts/vulners.nse https://svn.nmap.org/nmap/scripts/vulners.nse
+RUN wget -O /usr/share/nmap/scripts/http-wordpress-info.nse https://raw.githubusercontent.com/hackertarget/nmap-nse-scripts/master/http-wordpress-info.nse
 
 # tzdata
 RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime && \
@@ -374,6 +374,8 @@ RUN apt-get install -yq gconf-service libasound2 libatk1.0-0 libc6 libcairo2 lib
 RUN git clone https://github.com/scheib/chromium-latest-linux
 WORKDIR /opt/chromium/chromium-latest-linux
 RUN ./update.sh && ln -s /opt/chromium/chromium-latest-linux/latest/chrome /usr/bin/chromium
+
+WORKDIR /root
 
 # aquatone
 RUN cd ${HOME}/toolkit && \
