@@ -353,10 +353,10 @@ RUN cd ${HOME}/toolkit && \
 
 
 # droopsecan
-RUN cd ${HOME}/toolkit && \
-    git clone https://github.com/droope/droopescan.git && \
-    cd droopescan && \
-    pip install -r requirements.txt
+# RUN cd ${HOME}/toolkit && \
+#     git clone https://github.com/droope/droopescan.git && \
+#     cd droopescan && \
+#     pip install -r requirements.txt
 
 
 # subjack
