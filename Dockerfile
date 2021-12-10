@@ -399,10 +399,12 @@ RUN cd ${HOME}/toolkit && \
     chmod +x katoolin.py
 
 # Nuclei
-RUN go install -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei@latest
+RUN export GO111MODULE=on && \
+    go install -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei@latest
 
 # Interactsh
-RUN go install -v github.com/projectdiscovery/interactsh/cmd/interactsh-client@latest
+RUN export GO111MODULE=on && \
+    go install -v github.com/projectdiscovery/interactsh/cmd/interactsh-client@latest
 
 # Chromium
 WORKDIR /opt/chromium
@@ -413,10 +415,10 @@ RUN apt-get install -yq gconf-service libasound2 libatk1.0-0 libc6 libcairo2 lib
     ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils libgbm-dev
 
 RUN git clone https://github.com/scheib/chromium-latest-linux
-WORKDIR /opt/chromium/chromium-latest-linux
-RUN ./update.sh && ln -s /opt/chromium/chromium-latest-linux/latest/chrome /usr/bin/chromium
+RUN cd /opt/chromium/chromium-latest-linux && \
+    ./update.sh && ln -s /opt/chromium/chromium-latest-linux/latest/chrome /usr/bin/chromium
 
-WORKDIR /root
+WORKDIR ${HOME}
 
 # aquatone
 RUN cd ${HOME}/toolkit && \

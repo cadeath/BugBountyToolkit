@@ -4,9 +4,10 @@ Source: https://github.com/AlexisAhmed/BugBountyToolkit
 # Installed Tools
 - [x] altdns
 - [x] amass
+- [x] aquatone
 - [x] awscli
 - [x] bucket_finder
-- [x] CloudFlair
+- [-] CloudFlair
 - [x] commix
 - [x] dirb
 - [x] dirsearch
@@ -21,10 +22,14 @@ Source: https://github.com/AlexisAhmed/BugBountyToolkit
 - [x] httprobe
 - [x] joomscan
 - [x] Knockpy
+- [x] LinkFinder
 - [x] masscan
 - [x] massdns
 - [x] Nikto
 - [x] Nmap
+- [x] Nmap - vulners
+- [x] Nmap - http-wordpress-info
+- [x] Nuclei
 - [x] Recon-ng
 - [x] s3recon
 - [x] S3Scanner
